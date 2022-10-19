@@ -42,163 +42,30 @@ namespace Example
 
                             if (str.Contains("point"))
                             {
-                                int x, y;
-                                string tmpStr = null;
-                                int i = str.IndexOf(" ") + 1;
-                                while (str[i] != ' ')
-                                {
-                                    tmpStr += str[i];
-                                    if (i != str.Length-1)
-                                    i++;
-                                }
-                                i+=1;
-                                x = Int32.Parse(tmpStr);
-                            tmpStr = null;
-                                while (str[i] != ' ')
-                                {
-                                    tmpStr += str[i];
-                                if (i != str.Length - 1)
-                                    i++;
-                                else
-                                    break;
-                                }
-                                y = Int32.Parse(tmpStr);
-                                geometricObjects.Add(new Point(x, y));
+                                var factory = new FactoryPoint(str);
+                                geometricObjects.Add(factory.Create());
                             }
 
                             if (str.Contains("rect"))
                             {
-                            int x1, y1, x2, y2;
-                            string tmpStr = null;
-                            int i = str.IndexOf(" ") + 1;
-                            while (str[i] != ' ')
-                            {
-                                tmpStr += str[i];
-                                if (i != str.Length - 1)
-                                    i++;
-                            }
-                            i += 1;
-                            x1 = Int32.Parse(tmpStr);
-                            tmpStr = null;
-                            while (str[i] != ' ')
-                            {
-                                tmpStr += str[i];
-                                if (i != str.Length - 1)
-                                    i++;
-                                else
-                                    break;
-                            }
-                            i += 1;
-                            y1 = Int32.Parse(tmpStr);
-                            tmpStr = null;
-                            while (str[i] != ' ')
-                            {
-                                tmpStr += str[i];
-                                if (i != str.Length - 1)
-                                    i++;
-                            }
-                            i += 1;
-                            x2 = Int32.Parse(tmpStr);
-                            tmpStr = null;
-                            while (str[i] != ' ')
-                            {
-                                tmpStr += str[i];
-                                if (i != str.Length - 1)
-                                    i++;
-                                else
-                                    break;
-                            }
-                            i += 1;
-                            y2 = Int32.Parse(tmpStr);
-                            geometricObjects.Add(new Rec(x1, y1, x2, y2));
+                            var factory = new FactoryRec(str);
+                            geometricObjects.Add(factory.Create());
                         }
 
 
 
-                            if (str.Contains("line"))
-                            {
-                            int x1, y1, x2, y2;
-                            string tmpStr = null;
-                            int i = str.IndexOf(" ") + 1;
-                            while (str[i] != ' ')
-                            {
-                                tmpStr += str[i];
-                                if (i != str.Length - 1)
-                                    i++;
-                            }
-                            i += 1;
-                            x1 = Int32.Parse(tmpStr);
-                            tmpStr = null;
-                            while (str[i] != ' ')
-                            {
-                                tmpStr += str[i];
-                                if (i != str.Length - 1)
-                                    i++;
-                                else
-                                    break;
-                            }
-                            i += 1;
-                            y1 = Int32.Parse(tmpStr);
-                            tmpStr = null;
-                            while (str[i] != ' ')
-                            {
-                                tmpStr += str[i];
-                                if (i != str.Length - 1)
-                                    i++;
-                            }
-                            i += 1;
-                            x2 = Int32.Parse(tmpStr);
-                            tmpStr = null;
-                            while (str[i] != ' ')
-                            {
-                                tmpStr += str[i];
-                                if (i != str.Length - 1)
-                                    i++;
-                                else
-                                    break;
-                            }
-                            i += 1;
-                            y2 = Int32.Parse(tmpStr);
-                            geometricObjects.Add(new Line(x1, y1, x2, y2));
+                        if (str.Contains("line"))
+                        {
+                            var factory = new FactoryLine(str);
+                            geometricObjects.Add(factory.Create());
                         }
 
 
 
-                            if (str.Contains("circle"))
-                            {
-                            int x, y, r;
-                            string tmpStr = null;
-                            int i = str.IndexOf(" ") + 1;
-                            while (str[i] != ' ')
-                            {
-                                tmpStr += str[i];
-                                if (i != str.Length - 1)
-                                    i++;
-                            }
-                            i += 1;
-                            x = Int32.Parse(tmpStr);
-                            tmpStr = null;
-                            while (str[i] != ' ')
-                            {
-                                tmpStr += str[i];
-                                if (i != str.Length - 1)
-                                    i++;
-                                else
-                                    break;
-                            }
-                            i += 1;
-                            y = Int32.Parse(tmpStr);
-                            tmpStr = null;
-                            while (str[i] != ' ')
-                            {
-                                tmpStr += str[i];
-                                if (i != str.Length - 1)
-                                    i++;
-                                else
-                                    break;
-                            }
-                            r = Int32.Parse(tmpStr);
-                            geometricObjects.Add(new Circle(x, y, r));
+                        if (str.Contains("circle"))
+                        {
+                            var factory = new FactoryCircle(str);
+                            geometricObjects.Add(factory.Create());
                         }
                         }
                     }

@@ -1,6 +1,6 @@
 ﻿namespace GeometryLib
 {
-        public abstract class  GeometricObject
+        public abstract class GeometricObject
         {
             public abstract void Draw();
             public abstract void Intersect();
