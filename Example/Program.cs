@@ -70,7 +70,14 @@ namespace Example
                     }
                 }
                 for (int i = 0; i < geometricObjects.Count; i++)
+                {
                     geometricObjects[i].Draw();
+                }
+
+                var line = new Line(1, 1, 1, 1);
+                if (line.GetType() == typeof(Line))
+                    Console.WriteLine("true");
+
             }
             catch (IOException ex)
             {
