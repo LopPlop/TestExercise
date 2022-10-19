@@ -44,9 +44,6 @@ namespace GeometryLib
                     break;
             }
             y = Int32.Parse(tmpStr);
-
-            Console.WriteLine($"{x}, {y}");
-
             return new Point(x, y);
         }
     }

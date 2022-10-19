@@ -13,7 +13,7 @@ namespace Example
             List<GeometricObject> geometricObjects = new List<GeometricObject>();
 
             string path = @"C:\\Users\\Bruh\\source\\repos\\TestExercise\\Example\\Example.txt";
-            
+
             try
             {
                 using (var fileStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
@@ -33,21 +33,21 @@ namespace Example
                 }
 
                 using (var streamReader = new StreamReader(path))
+                {
+                    string str = null;
+
+                    while (!streamReader.EndOfStream)
                     {
-                        string str = null;
+                        str = streamReader.ReadLine();
 
-                        while (!streamReader.EndOfStream)
+                        if (str.Contains("point"))
                         {
-                            str = streamReader.ReadLine();
+                            var factory = new FactoryPoint(str);
+                            geometricObjects.Add(factory.Create());
+                        }
 
-                            if (str.Contains("point"))
-                            {
-                                var factory = new FactoryPoint(str);
-                                geometricObjects.Add(factory.Create());
-                            }
-
-                            if (str.Contains("rect"))
-                            {
+                        if (str.Contains("rect"))
+                        {
                             var factory = new FactoryRec(str);
                             geometricObjects.Add(factory.Create());
                         }
@@ -67,8 +67,8 @@ namespace Example
                             var factory = new FactoryCircle(str);
                             geometricObjects.Add(factory.Create());
                         }
-                        }
                     }
+                }
                 for (int i = 0; i < geometricObjects.Count; i++)
                     geometricObjects[i].Draw();
             }
