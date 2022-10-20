@@ -72,6 +72,8 @@ namespace Example
                 for (int i = 0; i < geometricObjects.Count; i++)
                 {
                     geometricObjects[i].Draw();
+                    if (i + 1 < geometricObjects.Count)
+                        geometricObjects[i].Intersect(geometricObjects[i+1]);
                 }
             }
             catch (IOException ex)
