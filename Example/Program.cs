@@ -52,15 +52,11 @@ namespace Example
                             geometricObjects.Add(factory.Create());
                         }
 
-
-
                         if (str.Contains("line"))
                         {
                             var factory = new FactoryLine(str);
                             geometricObjects.Add(factory.Create());
                         }
-
-
 
                         if (str.Contains("circle"))
                         {
