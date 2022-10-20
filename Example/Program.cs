@@ -73,11 +73,6 @@ namespace Example
                 {
                     geometricObjects[i].Draw();
                 }
-
-                var line = new Line(1, 1, 1, 1);
-                if (line.GetType() == typeof(Line))
-                    Console.WriteLine("true");
-
             }
             catch (IOException ex)
             {

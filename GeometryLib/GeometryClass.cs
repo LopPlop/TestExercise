@@ -28,7 +28,10 @@
 
         public override void Intersect(Point obj)
         {
-            throw new NotImplementedException();
+            if (obj.x == x && obj.y == y)
+                Console.WriteLine("Line and line have interseption");
+            else
+                Console.WriteLine("Line and line do not have interseption");
         }
 
         public override void Intersect(Rec obj)
@@ -38,12 +41,25 @@
 
         public override void Intersect(Line obj)
         {
-            throw new NotImplementedException();
+            double diffX = obj.x2 - obj.x1;
+            double diffY = obj.y2 - obj.y1;
+
+            double a = diffX / diffY;
+            double b = obj.x1 * a;
+
+            if (y == a * x + b)
+                Console.WriteLine("rectangle and circle have intersection");
+            else
+                Console.WriteLine($"rectangle and circle do not have intersection");
         }
 
         public override void Intersect(Circle obj)
         {
-            throw new NotImplementedException();
+            if (Math.Pow(obj.r, 2) == Math.Pow(x + obj.x, 2) + Math.Pow(y + obj.y, 2))
+                Console.WriteLine("rectangle and circle have intersection");
+            else
+                Console.WriteLine("rectangle and circle do not have intersection");
+
         }
     }
     public class Rec : GeometricObject
@@ -83,7 +99,24 @@
 
         public override void Intersect(Circle obj)
         {
-            throw new NotImplementedException();
+            if (obj.y < y1)
+            {
+                if (obj.x < x1 && ((obj.x - x1) * (obj.x - x1) + (obj.y - y1) * (obj.y - y1)) <= obj.r * obj.r) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+
+                if (obj.x > x2 && ((obj.x - x2) * (obj.x - x2) + (obj.y - y1) * (obj.y - y1)) <= obj.r * obj.r) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+                if ((y1 - obj.y) <= obj.r) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+            }
+            if (obj.y > y2)
+            {
+                if (obj.x < x1 && ((obj.x - x1) * (obj.x - x1) + (obj.y - y2) * (obj.y - y2)) <= obj.r * obj.r) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+                if (obj.x > x2 && ((obj.x - x2) * (obj.x - x2) + (obj.y - y2) * (obj.y - y2)) <= obj.r * obj.r) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+                if ((obj.y - y2) <= obj.r) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+            }
+
+            if (obj.x < x1 && (x1 - obj.x) <= obj.r) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+            if (obj.x > x2 && (obj.x - x2) <= obj.r) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+            if (((obj.x - x1) <= obj.r || (x2 - obj.x) <= obj.r || (obj.y - y1) <= obj.r || (y2 - obj.y) <= obj.r)) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+            Console.WriteLine($"rectangle and circle do not have intersection");
         }
     }
     public class Line : GeometricObject
@@ -108,7 +141,16 @@
        
         public override void Intersect(Point obj)
         {
-            throw new NotImplementedException();
+            double diffX = x2 - x1;
+            double diffY = y2 - y1;
+
+            double a = diffX / diffY;
+            double b = x1 * a;
+
+            if (obj.y == a * obj.x + b)
+                Console.WriteLine("rectangle and circle have intersection");
+            else
+                Console.WriteLine($"rectangle and circle do not have intersection");
         }
 
         public override void Intersect(Rec obj)
@@ -165,12 +207,30 @@
 
         public override void Intersect(Point obj)
         {
-            throw new NotImplementedException();
+            if (Math.Pow(r, 2) == Math.Pow(obj.x + x, 2) + Math.Pow(obj.y + y, 2))
+                Console.WriteLine("rectangle and circle have intersection");
+            else
+                Console.WriteLine("rectangle and circle do not have intersection");
         }
 
         public override void Intersect(Rec obj)
         {
-            throw new NotImplementedException();
+            if (y < obj.y1)
+            {
+                if (x < obj.x1 && ((x - obj.x1) * (x - obj.x1) + (y - obj.y1) * (y - obj.y1)) <= r * r) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+                if (x > obj.x2 && ((x - obj.x2) * (x - obj.x2) + (y - obj.y1) * (y - obj.y1)) <= r * r) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+                if ((obj.y1 - y) <= r) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+            }
+            if (y > obj.y2)
+            {
+                if (x < obj.x1 && ((x - obj.x1) * (x - obj.x1) + (y - obj.y2) * (y - obj.y2)) <= r * r) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+                if (x > obj.x2 && ((x - obj.x2) * (x - obj.x2) + (y - obj.y2) * (y - obj.y2)) <= r * r) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+                if ((y - obj.y2) <= r) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+            }
+            if (x < obj.x1 && (obj.x1 - x) <= r) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+            if (x > obj.x2 && (x - obj.x2) <= r) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+            if (((x - obj.x1) <= r || (obj.x2 - x) <= r || (y - obj.y1) <= r || (obj.y2 - y) <= r)) { Console.WriteLine($"rectangle and circle have intersection"); return; }
+            Console.WriteLine($"rectangle and circle do not have intersection");
         }
 
         public override void Intersect(Line obj)
@@ -195,12 +255,16 @@
                 Console.WriteLine($"line and circle have intersection at ({_x1},{_y1}),({_x2}{_y2})");
             }
             else
-                Console.WriteLine($"circle and line do not have intersections");
+                Console.WriteLine($"line and circle do not have intersections");
         }
 
         public override void Intersect(Circle obj)
         {
-            throw new NotImplementedException();
+            double d = (x - obj.x) * (x - obj.x) + (y - obj.y) * (y - obj.y);
+            if (d <= (r + obj.r) * (r + obj.r) && d >= (r > obj.r ? r - obj.r : obj.r - r))
+                Console.WriteLine($"circle and circle have intersections");
+            else
+                Console.WriteLine($"circle and circle do not have intersections");
         }
     }
 }
