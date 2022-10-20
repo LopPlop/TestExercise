@@ -43,6 +43,17 @@
             p3 = Minor.Product(x, y, obj.x2, obj.y2, obj.x2, obj.y1);
             p4 = Minor.Product(x, y, obj.x2, obj.y1, obj.x1, obj.y1);
 
+            if((obj.x1 == x && obj.y1 == y ) | 
+               (obj.x2 == x && obj.y2 == y ) | 
+               (obj.x1 == x && obj.y2 == y ) | 
+               (obj.x2 == x && obj.y1 == y))
+            {
+                Console.WriteLine($"Rec and point have intersections({x},{y})");
+                return;
+            }
+                
+
+
             if ((p1 < 0 && p2 < 0 && p3 < 0 && p4 < 0) ||
                 (p1 > 0 && p2 > 0 && p3 > 0 && p4 > 0))
                 Console.WriteLine($"Rec and point have intersections({x},{y})");
@@ -59,9 +70,9 @@
             double b = obj.x1 * a;
 
             if (y == a * x + b)
-                Console.WriteLine($"Rec and point have intersections({x},{y})");
+                Console.WriteLine($"Rec and line have intersections({x},{y})");
             else
-                Console.WriteLine($"Rec and point do not have intersections");
+                Console.WriteLine($"Rec and line do not have intersections");
         }
 
         public override void Intersect(Circle obj)
@@ -99,6 +110,8 @@
             this.y2 = y2;
         }
 
+
+
         public override void Draw()
         {
             System.Console.WriteLine($"rect at ({x1},{y1}),({x2},{y2})");
@@ -113,9 +126,18 @@
             p3 = Minor.Product(obj.x, obj.y, x2, y2, x2, y1);
             p4 = Minor.Product(obj.x, obj.y, x2, y1, x1, y1);
 
+            if (x1 == obj.x && y1 == obj.y |
+               (x2 == obj.x && y2 == obj.y) |
+               (x1 == obj.x && y2 == obj.y) |
+               (x2 == obj.x && y1 == obj.y))
+            {
+                Console.WriteLine($"Rec and point have intersections({obj.x},{obj.y})");
+                return;
+            }
+
             if ((p1 < 0 && p2 < 0 && p3 < 0 && p4 < 0) ||
                 (p1 > 0 && p2 > 0 && p3 > 0 && p4 > 0))
-                Console.WriteLine($"Rect and point have intersections");
+                Console.WriteLine($"Rec and point have intersections({obj.x},{obj.y})");
             else
                 Console.WriteLine("Rect and point do not have intersections");
         }
@@ -247,9 +269,9 @@
             Minor.LineIntersectsLine(x1, y1, x2, y2, obj.x2, obj.y2, obj.x2, obj.y1) ||
             Minor.LineIntersectsLine(x1, y1, x2, y2, obj.x2, obj.y1, obj.x1, obj.y1)
             )
-                Console.WriteLine("Rec and point have intersections");
+                Console.WriteLine("Rec and line have intersections");
             else
-                Console.WriteLine("Rec and point do not have intersections");
+                Console.WriteLine("Rec and line do not have intersections");
 
         }
 
