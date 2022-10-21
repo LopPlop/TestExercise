@@ -2,7 +2,8 @@
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using GeometryLib;
-
+using GeometryLib.Geometry;
+using GeometryLib.Factory;
 
 namespace Example
 {
