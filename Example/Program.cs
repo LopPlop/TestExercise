@@ -4,14 +4,16 @@ using System.Security.Cryptography.X509Certificates;
 using GeometryLib;
 using GeometryLib.Geometry;
 using GeometryLib.Factory;
+using System.Drawing;
 
+                                                    /* Тестовое задание #1543 */
 namespace Example
 {
     class Program
     {
         static void Main()
         {
-            List<GeometricObject> geometricObjects = new List<GeometricObject>();
+            List<IGeometricObject> geometricObjects = new List<IGeometricObject>();
 
             string path = @"C:\\Users\\Bruh\\source\\repos\\TestExercise\\Example\\Example.txt";
 

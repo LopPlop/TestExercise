@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeometryLib
+namespace GeometryLib.SomeMath
 {
     public class MinorMathMethods
     {
-        public static double Product(double Px, double Py, double Ax, double Ay, double Bx, double By)
+        // 
+        public static double Product(double Px, double Py, double Ax, double Ay, double Bx, double By)  
         {
             return (Bx - Ax) * (Py - Ay) - (By - Ay) * (Px - Ax);
         }
 
+        // Finds intersection of 2 lines
         public static bool LineIntersectsLine(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
         {
             double q = (y1 - y3) * (x4 - x3) - (x1 - x3) * (y4 - y3);

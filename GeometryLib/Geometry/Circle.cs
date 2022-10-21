@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace GeometryLib.Geometry
 {
-
-    public class Circle : GeometricObject
+    // Класс окружности
+    public class Circle : IGeometricObject
     {
         public double X { get; set; }
         public double Y { get; set; }
@@ -19,43 +19,44 @@ namespace GeometryLib.Geometry
             R = r;
         }
 
+
+        // Метод, который выводи информацию об объекте в консоль
         public void Draw()
         {
             Console.WriteLine($"circle at ({X},{Y}), radius={R}");
         }
-        public void Intersect(Point obj)
+
+
+        // Метод, который находит пересения с различными геометрическими объектами
+        public void Intersect(IGeometricObject obj)
         {
-            obj.Intersect(this);
+            if (this.GetType() == obj.GetType())
+                IntersectCircleNCircle((Circle)obj);
+
+
+            if (typeof(Line).IsAssignableFrom(obj.GetType()))
+                obj.Intersect(this);
+
+
+            if (typeof(Rec).IsAssignableFrom(obj.GetType()))
+                obj.Intersect(this);
+
+
+            if (typeof(Point).IsAssignableFrom(obj.GetType()))
+                obj.Intersect(this);
         }
 
-        private void Intersect(Rec obj)
-        {
-            obj.Intersect(this);
-        }
 
-        private void Intersect(Line obj)
-        {
-            obj.Intersect(this);
-        }
-
+        // Метод, который определяет, пересекаются ли две окружности
         private void IntersectCircleNCircle(Circle obj)
         {
             double d = (X - obj.X) * (X - obj.X) + (Y - obj.Y) * (Y - obj.Y);
+
             if (d <= (R + obj.R) * (R + obj.R) && d >= (R > obj.R ? R - obj.R : obj.R - R))
-                Console.WriteLine("circle and circle have intersections");
+                Console.WriteLine("circles have intersections");
             else
-                Console.WriteLine("circle and circle do not have intersections");
+                Console.WriteLine("circles do not have intersections");
         }
-        public void Intersect(GeometricObject obj)
-        {
-            if (typeof(Circle).IsAssignableFrom(obj.GetType()))
-                IntersectCircleNCircle((Circle)obj);
-            if (typeof(Line).IsAssignableFrom(obj.GetType()))
-                Intersect((Line)obj);
-            if (typeof(Rec).IsAssignableFrom(obj.GetType()))
-                Intersect((Rec)obj);
-            if (typeof(Point).IsAssignableFrom(obj.GetType()))
-                Intersect((Point)obj);
-        }
+        
     }
 }

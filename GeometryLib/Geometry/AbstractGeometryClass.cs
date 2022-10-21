@@ -1,12 +1,10 @@
 ﻿namespace GeometryLib.Geometry
 {
-    public interface GeometricObject
+    public interface IGeometricObject
     {
+        // Метод, который выводи информацию об объекте в консоль
         void Draw();
-        void Intersect(GeometricObject obj);
+        // Метод, который находит пересения с различными геометрическими объектами
+        void Intersect(IGeometricObject obj);
     }
-
-    
-    
-    
 }

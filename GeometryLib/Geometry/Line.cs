@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GeometryLib.SomeMath;
 
 namespace GeometryLib.Geometry
 {
-    
-
-    public class Line : GeometricObject
+    // Класс линии
+    public class Line : IGeometricObject
     {
         public double X1 { get; set; }
         public double Y1 { get; set; }
@@ -22,13 +22,36 @@ namespace GeometryLib.Geometry
             Y2 = y2;
         }
 
+
+        // Метод, который выводи информацию об объекте в консоль
         public void Draw()
         {
             Console.WriteLine($"line at ({X1},{Y1},{X2},{Y2})");
         }
 
 
-        private void IntersectPoint(Point obj)
+        // Метод, который находит пересения с различными геометрическими объектами
+        public void Intersect(IGeometricObject obj)
+        {
+            if (typeof(Circle).IsAssignableFrom(obj.GetType()))
+                LineIntersectCircle((Circle)obj);
+
+
+            if (typeof(Line).IsAssignableFrom(obj.GetType()))
+                IntersectLine((Line)obj);
+
+
+            if (typeof(Rec).IsAssignableFrom(obj.GetType()))
+                LineIntersectRec((Rec)obj);
+
+
+            if (typeof(Point).IsAssignableFrom(obj.GetType()))
+                LineIntersectPoint((Point)obj);
+        }
+
+
+
+        private void LineIntersectPoint(Point obj)
         {
             double diffX = X2 - X1;
             double diffY = Y2 - Y1;
@@ -42,7 +65,9 @@ namespace GeometryLib.Geometry
                 Console.WriteLine("point and line do not have intersections");
         }
 
-        private void Intersect(Rec obj)
+
+
+        private void LineIntersectRec(Rec obj)
         {
             if
             (
@@ -57,26 +82,21 @@ namespace GeometryLib.Geometry
 
         }
 
+
+
         private void IntersectLine(Line obj)
         {
-            double n;
-            if (Y2 - Y1 != 0)
+            if(MinorMathMethods.LineIntersectsLine(X1,Y1,X2,Y2, obj.X1, obj.Y1, obj.X2, obj.Y2))
             {
-                double q = (X2 - X1) / (Y1 - Y2);
-                double sn = obj.X1 - obj.X2 + (obj.Y1 - obj.Y2) * q;
-                double fn = obj.X1 - X1 + (obj.Y1 - Y1) * q;
-                n = fn / sn;
-                if (sn != 0) { Console.WriteLine("line and line do not have intersections"); }
+                Console.WriteLine("lines are intersected");
             }
             else
-            {
-                if (obj.Y1 - obj.Y2 != 0) { Console.WriteLine("line and line do not have intersections"); }
-                n = (obj.Y1 - Y1) / (obj.Y1 - obj.Y2);
-            }
-
-            Console.WriteLine($"line and line have intersections ({obj.X1 + (obj.X2 - obj.X1) * n},{obj.Y1 + (obj.Y2 - obj.Y1) * n})");
+                Console.WriteLine("line and line do not have intersections");
         }
-        private void IntersectCircle(Circle obj)
+
+
+
+        private void LineIntersectCircle(Circle obj)
         {
             double diffX = X2 - X1;
             double diffY = Y2 - Y1;
@@ -100,17 +120,5 @@ namespace GeometryLib.Geometry
             else
                 Console.WriteLine($"circle and line do not have intersections");
         }
-        public void Intersect(GeometricObject obj)
-        {
-            if (typeof(Circle).IsAssignableFrom(obj.GetType()))
-                IntersectCircle((Circle)obj);
-            if (typeof(Line).IsAssignableFrom(obj.GetType()))
-                IntersectLine((Line)obj);
-            if (typeof(Rec).IsAssignableFrom(obj.GetType()))
-                Intersect((Rec)obj);
-            if (typeof(Point).IsAssignableFrom(obj.GetType()))
-                IntersectPoint((Point)obj);
-        }
-
     }
 }

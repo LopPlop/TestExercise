@@ -13,7 +13,9 @@ namespace GeometryLib.Factory
         {
         }
 
-        public override GeometricObject Create()
+
+        // Абстрактный метод, служащий для производства объектов
+        public override IGeometricObject Create()
         {
             int x1, y1, x2, y2;
             GetCoordinatesByStr(out x1, out y1, out x2, out y2);

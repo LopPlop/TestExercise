@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GeometryLib.SomeMath;
 
 namespace GeometryLib.Geometry
 {
-    public class Point : GeometricObject
+    // Класс точки
+    public class Point : IGeometricObject
     {
         public double X { get; set; }
         public double Y { get; set; }
@@ -18,12 +20,35 @@ namespace GeometryLib.Geometry
             Y = y;
         }
 
+
+        // Метод, который выводи информацию об объекте в консоль
         public void Draw()
         {
             Console.WriteLine($"point at ({X},{Y})");
         }
 
-        private void Intersect(Point obj)
+
+        // Метод, который находит пересения с различными геометрическими объектами
+        public void Intersect(IGeometricObject obj)
+        {
+            if (typeof(Circle).IsAssignableFrom(obj.GetType()))
+                PointIntersectCircle((Circle)obj);
+
+
+            if (typeof(Line).IsAssignableFrom(obj.GetType()))
+                obj.Intersect(this);
+
+
+            if (typeof(Rec).IsAssignableFrom(obj.GetType()))
+                PointIntersectRectangle((Rec)obj);
+
+
+            if (typeof(Point).IsAssignableFrom(obj.GetType()))
+                PointIntersectPoint((Point)obj);
+        }
+
+
+        private void PointIntersectPoint(Point obj)
         {
             if (obj.X == X && obj.Y == Y)
                 Console.WriteLine($"point and point have intersections({X},{Y})");
@@ -31,7 +56,8 @@ namespace GeometryLib.Geometry
                 Console.WriteLine("point and point do not have intersections");
         }
 
-        private void Intersect(Rec obj)
+
+        private void PointIntersectRectangle(Rec obj)
         {
             double p1, p2, p3, p4;
             p1 = MinorMathMethods.Product(X, Y, obj.X1, obj.Y1, obj.X1, obj.Y2);
@@ -55,39 +81,14 @@ namespace GeometryLib.Geometry
                 Console.WriteLine("Rec and point do not have intersections");
         }
 
-        private void Intersect(Line obj)
-        {
-            double diffX = obj.X2 - obj.X1;
-            double diffY = obj.Y2 - obj.Y1;
 
-            double a = diffX / diffY;
-            double b = obj.X1 * a;
-
-            if (Y == a * X + b)
-                Console.WriteLine($"Rec and line have intersections({X},{Y})");
-            else
-                Console.WriteLine($"Rec and line do not have intersections");
-        }
-
-        private void Intersect(Circle obj)
+        private void PointIntersectCircle(Circle obj)
         {
             if (Math.Pow(obj.R, 2) == Math.Pow(X + obj.X, 2) + Math.Pow(Y + obj.Y, 2))
                 Console.WriteLine($"point and circle have intersections({X},{Y})");
             else
                 Console.WriteLine("point and circle do not have intersections");
 
-        }
-
-        public void Intersect(GeometricObject obj)
-        {
-            if (typeof(Circle).IsAssignableFrom(obj.GetType()))
-                Intersect((Circle)obj);
-            if (typeof(Line).IsAssignableFrom(obj.GetType()))
-                Intersect((Line)obj);
-            if (typeof(Rec).IsAssignableFrom(obj.GetType()))
-                Intersect((Rec)obj);
-            if (typeof(Point).IsAssignableFrom(obj.GetType()))
-                Intersect((Point)obj);
         }
     }
 
