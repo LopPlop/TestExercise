@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeometryLib.SomeMath;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,11 +29,11 @@ namespace GeometryLib.Geometry
             Console.WriteLine($"rect at ({X1},{Y1}),({X2},{Y2})");
         }
 
-        // Метод, который находит пересения с различными геометрическими объектами
+        // Метод, который вызывает методы нахождения пересения с различными геометрическими объектами
         public void Intersect(IGeometricObject obj)
         {
             if (typeof(Circle).IsAssignableFrom(obj.GetType()))
-                RecIntersectCircle((Circle)obj);
+                RecIntersections.RecIntersectCircle((Circle)obj, this);
 
 
             if (typeof(Line).IsAssignableFrom(obj.GetType()))
@@ -40,7 +41,7 @@ namespace GeometryLib.Geometry
 
 
             if (typeof(Rec).IsAssignableFrom(obj.GetType()))
-                RecIntersectRec((Rec)obj);
+                RecIntersections.RecIntersectRec((Rec)obj, this);
 
 
             if (typeof(Point).IsAssignableFrom(obj.GetType()))
@@ -48,113 +49,5 @@ namespace GeometryLib.Geometry
         }
 
 
-        private void RecIntersectRec(Rec obj)
-        {
-            if (
-                  (
-                    X1 >= obj.X1 && X1 <= obj.X2 || X2 >= obj.X1 && X2 <= obj.X2
-                  ) && (
-                    Y1 >= obj.Y1 && Y1 <= obj.Y2 || Y2 >= obj.Y1 && Y2 <= obj.Y2
-                  )
-                 ||
-                  (
-                    obj.X1 >= X1 && obj.X1 <= X2 || obj.X2 >= X1 && obj.X2 <= X2
-                  ) && (
-                    obj.Y1 >= Y1 && obj.Y1 <= Y2 || obj.Y2 >= Y1 && obj.Y2 <= Y2
-                  )
-
-               ||
-
-                  (
-                    X1 >= obj.X1 && X1 <= obj.X2 || X2 >= obj.X1 && X2 <= obj.X2
-                  ) && (
-                    obj.Y1 >= Y1 && obj.Y1 <= Y2 || obj.Y2 >= Y1 && obj.Y2 <= Y2
-                  )
-                 ||
-                  (
-                    obj.X1 >= X1 && obj.X1 <= X2 || obj.X2 >= X1 && obj.X2 <= X2
-                  ) && (
-                    Y1 >= obj.Y1 && Y1 <= obj.Y2 || Y2 >= obj.Y1 && Y2 <= obj.Y2
-                  )
-
-              )
-            {
-                Console.WriteLine("Rectangles have intersections");
-            }
-            else
-                Console.WriteLine("Rectangles do not  have intersections");
-        }
-
-
-
-        private void RecIntersectCircle(Circle obj)
-        {
-            if (obj.Y < Y1)
-            {
-                if (obj.X < X1 && 
-                   (obj.X - X1) * (obj.X - X1) + 
-                   (obj.Y - Y1) * (obj.Y - Y1) <= obj.R * obj.R
-                   )
-                { Console.WriteLine($"Rect and circle have intersections"); return; }
-
-
-                if (obj.X > X2 && 
-                    (obj.X - X2) * (obj.X - X2) + 
-                    (obj.Y - Y1) * (obj.Y - Y1) <= obj.R * obj.R
-                    ) 
-                { Console.WriteLine($"Rect and circle have intersections"); return; }
-
-
-                if (Y1 - obj.Y <= 
-                    obj.R
-                    ) 
-                { Console.WriteLine($"Rect and circle have intersections"); return; }
-            }
-
-
-            if (obj.Y > Y2)
-            {
-                if (obj.X < X1 && 
-                    (obj.X - X1) * (obj.X - X1) + 
-                    (obj.Y - Y2) * (obj.Y - Y2) <= obj.R * obj.R
-                    ) 
-                { Console.WriteLine($"rectangle and circle have intersections"); return; }
-
-
-                if (obj.X > X2 && 
-                    (obj.X - X2) * (obj.X - X2) + 
-                    (obj.Y - Y2) * (obj.Y - Y2) <= obj.R * obj.R
-                    ) 
-                { Console.WriteLine($"rectangle and circle have intersections"); return; }
-
-
-                if (obj.Y - Y2 <= obj.R
-                    ) 
-                { Console.WriteLine($"Rect and circle have intersections"); return; }
-            }
-
-
-            if (obj.X < X1 && 
-                X1 - obj.X <= obj.R
-                ) 
-            { Console.WriteLine($"rectangle and circle have intersections"); return; }
-
-
-            if (obj.X > X2 && 
-                obj.X - X2 <= obj.R
-                ) 
-            { Console.WriteLine($"rectangle and circle have intersections"); return; }
-
-
-            if (obj.X - X1 <= obj.R || 
-                X2 - obj.X <= obj.R || 
-                obj.Y - Y1 <= obj.R || 
-                Y2 - obj.Y <= obj.R
-                ) 
-            { Console.WriteLine($"Rect and circle have intersections"); return; }
-
-
-            Console.WriteLine($"Rect and circle do not have intersections");
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeometryLib.SomeMath;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,11 +28,11 @@ namespace GeometryLib.Geometry
         }
 
 
-        // Метод, который находит пересения с различными геометрическими объектами
+        // Метод, который вызывает методы нахождения пересения с различными геометрическими объектами
         public void Intersect(IGeometricObject obj)
         {
             if (this.GetType() == obj.GetType())
-                IntersectCircleNCircle((Circle)obj);
+                CircleIntersections.IntersectCircleNCircle((Circle)obj, this);
 
 
             if (typeof(Line).IsAssignableFrom(obj.GetType()))
@@ -45,18 +46,5 @@ namespace GeometryLib.Geometry
             if (typeof(Point).IsAssignableFrom(obj.GetType()))
                 obj.Intersect(this);
         }
-
-
-        // Метод, который определяет, пересекаются ли две окружности
-        private void IntersectCircleNCircle(Circle obj)
-        {
-            double d = (X - obj.X) * (X - obj.X) + (Y - obj.Y) * (Y - obj.Y);
-
-            if (d <= (R + obj.R) * (R + obj.R) && d >= (R > obj.R ? R - obj.R : obj.R - R))
-                Console.WriteLine("circles have intersections");
-            else
-                Console.WriteLine("circles do not have intersections");
-        }
-        
     }
 }

@@ -11,17 +11,16 @@ namespace Example
 {
     class Program
     {
+        const string path = @"C:\Users\Dominator\Documents\GitHub\TestExercise\Example\Example.txt";
+
         static void Main()
         {
             List<IGeometricObject> geometricObjects = new List<IGeometricObject>();
-
-            string path = @"C:\\Users\\Bruh\\source\\repos\\TestExercise\\Example\\Example.txt";
 
             try
             {
                 using (var fileStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
                 {
-
 
                     if (fileStream.Length <= 0)
                     {
@@ -68,18 +67,24 @@ namespace Example
                         }
                     }
                 }
-                for (int i = 0; i < geometricObjects.Count; i++)
-                {
-                    geometricObjects[i].Draw();
-                    if (i + 1 < geometricObjects.Count)
-                        geometricObjects[i].Intersect(geometricObjects[i+1]);
-                }
+                ViewAllGeometryObjectsAndIntersections(geometricObjects);
             }
             catch (IOException ex)
             {
                 Console.WriteLine(ex.Message);
             }
+        }
 
+        private static void ViewAllGeometryObjectsAndIntersections(List<IGeometricObject> geometricObjects)
+        {
+            Console.WriteLine("         Coordinates");
+            for (int i = 0; i < geometricObjects.Count; i++)
+                geometricObjects[i].Draw();
+
+            Console.WriteLine("         Intersections");
+            for (int i = 0; i < geometricObjects.Count; i++)
+                if (i + 1 < geometricObjects.Count)
+                geometricObjects[i].Intersect(geometricObjects[i + 1]);
         }
     }
 }
