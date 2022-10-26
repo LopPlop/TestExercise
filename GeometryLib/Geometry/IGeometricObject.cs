@@ -1,5 +1,6 @@
 ﻿namespace GeometryLib.Geometry
 {
+    // Интерфейс геометрических фигур
     public interface IGeometricObject
     {
         // Метод, который выводи информацию об объекте в консоль
