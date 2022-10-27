@@ -22,12 +22,11 @@ namespace GeometryLib.Geometry
             Y2 = y2;
         }
 
-
-        // Метод, который выводи информацию об объекте в консоль
-        public void Draw()
+        public override string? ToString()
         {
-            Console.WriteLine($"line at ({X1},{Y1},{X2},{Y2})");
+            return $"line at ({X1},{Y1},{X2},{Y2})";
         }
+
 
 
         // Метод, который вызывает методы нахождения пересения с различными геометрическими объектами

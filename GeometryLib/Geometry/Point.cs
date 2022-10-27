@@ -20,11 +20,9 @@ namespace GeometryLib.Geometry
             Y = y;
         }
 
-
-        // Метод, который выводи информацию об объекте в консоль
-        public void Draw()
+        public override string? ToString()
         {
-            Console.WriteLine($"point at ({X},{Y})");
+            return $"point at ({X},{Y})";
         }
 
 

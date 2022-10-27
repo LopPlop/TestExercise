@@ -77,11 +77,11 @@ namespace Example
 
         private static void ViewAllGeometryObjectsAndIntersections(List<IGeometricObject> geometricObjects)
         {
-            Console.WriteLine("         Coordinates");
+            Console.WriteLine("\t\tCoordinates");
             for (int i = 0; i < geometricObjects.Count; i++)
-                geometricObjects[i].Draw();
+                Console.WriteLine(geometricObjects[i]);
 
-            Console.WriteLine("         Intersections");
+            Console.WriteLine("\t\tIntersections");
             for (int i = 0; i < geometricObjects.Count; i++)
                 if (i + 1 < geometricObjects.Count)
                 geometricObjects[i].Intersect(geometricObjects[i + 1]);

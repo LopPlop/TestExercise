@@ -23,9 +23,9 @@ namespace GeometryLib.Geometry
         }
 
         // Метод, который выводи информацию об объекте в консоль
-        public void Draw()
+        public override string ToString()
         {
-            Console.WriteLine($"rect at ({X1},{Y1}),({X2},{Y2})");
+            return $"rect at ({X1},{Y1}),({X2},{Y2})";
         }
 
         // Метод, который вызывает методы нахождения пересения с различными геометрическими объектами

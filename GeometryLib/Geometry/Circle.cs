@@ -22,9 +22,9 @@ namespace GeometryLib.Geometry
 
 
         // Метод, который выводи информацию об объекте в консоль
-        public void Draw()
+        public override string? ToString()
         {
-            Console.WriteLine($"circle at ({X},{Y}), radius={R}");
+            return $"circle at ({X},{Y}), radius={R}";
         }
 
 
