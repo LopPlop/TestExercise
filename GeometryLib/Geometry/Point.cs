@@ -31,19 +31,19 @@ namespace GeometryLib.Geometry
         // Метод, который вызывает методы нахождения пересения с различными геометрическими объектами
         public void Intersect(IGeometricObject obj)
         {
-            if (typeof(Circle).IsAssignableFrom(obj.GetType()))
+            if (obj is Circle)
                 PointIntersections.PointIntersectCircle((Circle)obj, this);
 
 
-            if (typeof(Line).IsAssignableFrom(obj.GetType()))
+            if (obj is Line)
                 obj.Intersect(this);
 
 
-            if (typeof(Rec).IsAssignableFrom(obj.GetType()))
+            if (obj is Rec)
                 PointIntersections.PointIntersectRectangle((Rec)obj, this);
 
 
-            if (typeof(Point).IsAssignableFrom(obj.GetType()))
+            if (obj is Point)
                 PointIntersections.PointIntersectPoint(this, (Point)obj);
         }
     }

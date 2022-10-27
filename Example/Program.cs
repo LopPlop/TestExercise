@@ -11,7 +11,7 @@ namespace Example
 {
     class Program
     {
-        const string path = @"C:\Users\Dominator\Documents\GitHub\TestExercise\Example\Example.txt";
+        const string path = @"C:\Users\Bruh\source\repos\TestExercise\Example\Example.txt";
 
         static void Main()
         {

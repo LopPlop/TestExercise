@@ -22,7 +22,6 @@ namespace GeometryLib.Geometry
             Y2 = y2;
         }
 
-
         // Метод, который выводи информацию об объекте в консоль
         public void Draw()
         {
@@ -32,19 +31,16 @@ namespace GeometryLib.Geometry
         // Метод, который вызывает методы нахождения пересения с различными геометрическими объектами
         public void Intersect(IGeometricObject obj)
         {
-            if (typeof(Circle).IsAssignableFrom(obj.GetType()))
+            if (obj is Circle)
                 RecIntersections.RecIntersectCircle((Circle)obj, this);
 
-
-            if (typeof(Line).IsAssignableFrom(obj.GetType()))
+            if (obj is Line)
                 obj.Intersect(this);
 
-
-            if (typeof(Rec).IsAssignableFrom(obj.GetType()))
+            if (obj is Rec)
                 RecIntersections.RecIntersectRec((Rec)obj, this);
 
-
-            if (typeof(Point).IsAssignableFrom(obj.GetType()))
+            if (obj is Point)
                 obj.Intersect(this);
         }
 
